@@ -141,9 +141,9 @@ pip install -r requirements.txt`}</code></pre>
       <footer className="footer">
         <p>&copy; 2026 Brevity API. All systems operational.</p>
         <div className="footer-links">
-          <a href="#">Terms</a>
-          <a href="#">Privacy</a>
-          <a href="#">Status</a>
+          <a href="https://github.com/Sadiqov-Riad/Brevity_MarkdownShrinker/blob/API/TERMS.md" target="_blank" rel="noopener noreferrer">Terms</a>
+          <a href="https://github.com/Sadiqov-Riad/Brevity_MarkdownShrinker/blob/API/PRIVACY.md" target="_blank" rel="noopener noreferrer">Privacy</a>
+          <a href="https://github.com/Sadiqov-Riad/Brevity_MarkdownShrinker/blob/API/SECURITY.md" target="_blank" rel="noopener noreferrer">Security</a>
           <a href="https://github.com/Sadiqov-Riad" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="https://www.linkedin.com/in/riad-sadiqov-93a600329" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
