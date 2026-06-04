@@ -39,7 +39,7 @@ export default function Header({ badgeText }: { badgeText: string }) {
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         aria-label="Toggle menu"
       >
-        {isMenuOpen ? "[X] CLOSE" : "[☰] MENU"}
+        {isMenuOpen ? "[X]" : "[☰]"}
       </button>
 
       <div className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>

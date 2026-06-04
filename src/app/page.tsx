@@ -4,35 +4,6 @@ import { useState, useEffect, useRef, ReactNode } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 
-const Preloader = ({ onComplete }: { onComplete: () => void }) => {
-  const [lines, setLines] = useState<number>(0);
-  const [fading, setFading] = useState(false);
-
-  useEffect(() => {
-    const timer1 = setTimeout(() => setLines(1), 300);
-    const timer2 = setTimeout(() => setLines(2), 700);
-    const timer3 = setTimeout(() => setLines(3), 1100);
-    const fadeTimer = setTimeout(() => {
-      setFading(true);
-      setTimeout(onComplete, 500); // give 500ms for fade out transition
-    }, 1500);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-      clearTimeout(fadeTimer);
-    };
-  }, [onComplete]);
-
-  return (
-    <div className={`preloader ${fading ? "fade-out" : ""}`}>
-      {lines >= 1 && <div className="preloader-line" style={{ animationDelay: "0ms" }}>&gt; INITIALIZING BREVITY ENGINE...</div>}
-      {lines >= 2 && <div className="preloader-line" style={{ animationDelay: "0ms" }}>&gt; COMPILING REGEX...</div>}
-      {lines >= 3 && <div className="preloader-line" style={{ animationDelay: "0ms" }}>&gt; SYSTEM READY.</div>}
-    </div>
-  );
-};
 
 const AnimatedSection = ({ children, className = "", delay = 0 }: { children: ReactNode, className?: string, delay?: number }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -209,7 +180,6 @@ function sanitizeMarkdown(content: string, options: { strip_svg: boolean, strip_
 }
 
 export default function Home() {
-  const [isAppLoaded, setIsAppLoaded] = useState(false);
   const [content, setContent] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
@@ -314,10 +284,6 @@ export default function Home() {
       navigator.clipboard.writeText(result);
     }
   };
-
-  if (!isAppLoaded) {
-    return <Preloader onComplete={() => setIsAppLoaded(true)} />;
-  }
 
   return (
     <div className="container">
