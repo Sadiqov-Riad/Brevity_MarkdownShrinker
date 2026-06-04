@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Header from "@/components/Header";
 
 export default function Docs() {
   const [activeHash, setActiveHash] = useState("");
@@ -15,20 +16,7 @@ export default function Docs() {
 
   return (
     <div className="container">
-      <header className="header">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <h1>Brevity<span className="blink">_</span></h1>
-          </Link>
-          <span className="badge">Docs</span>
-        </div>
-        <nav className="nav-links">
-          <Link href="/#quick-start">Quick Start</Link>
-          <Link href="/docs" style={{ color: 'var(--fg-color)' }}>Docs</Link>
-          <Link href="/#reviews">Reviews</Link>
-          <a href="https://github.com/Sadiqov-Riad/Brevity" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </nav>
-      </header>
+      <Header badgeText="Docs" />
 
       <div className="docs-layout">
         <aside className="docs-sidebar">

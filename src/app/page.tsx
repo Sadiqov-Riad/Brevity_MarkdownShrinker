@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, ReactNode } from "react";
 import Link from "next/link";
+import Header from "@/components/Header";
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   const [lines, setLines] = useState<number>(0);
@@ -320,18 +321,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <header className="header">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <h1>Brevity<span className="blink">_</span></h1>
-          <span className="badge">API v1.0</span>
-        </div>
-        <nav className="nav-links">
-          <a href="#quick-start">Quick Start</a>
-          <a href="/docs">Docs</a>
-          <a href="#reviews">Reviews</a>
-          <a href="https://github.com/Sadiqov-Riad/Brevity" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </nav>
-      </header>
+      <Header badgeText="API v1.0" />
 
       <main>
         <p style={{ marginBottom: "2.5rem", color: "#888", maxWidth: "600px", lineHeight: "1.6" }}>
