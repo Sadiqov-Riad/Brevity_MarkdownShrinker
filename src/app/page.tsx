@@ -1,7 +1,66 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, ReactNode } from "react";
 import Link from "next/link";
+
+const Preloader = ({ onComplete }: { onComplete: () => void }) => {
+  const [lines, setLines] = useState<number>(0);
+  const [fading, setFading] = useState(false);
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => setLines(1), 300);
+    const timer2 = setTimeout(() => setLines(2), 700);
+    const timer3 = setTimeout(() => setLines(3), 1100);
+    const fadeTimer = setTimeout(() => {
+      setFading(true);
+      setTimeout(onComplete, 500); // give 500ms for fade out transition
+    }, 1500);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+      clearTimeout(fadeTimer);
+    };
+  }, [onComplete]);
+
+  return (
+    <div className={`preloader ${fading ? "fade-out" : ""}`}>
+      {lines >= 1 && <div className="preloader-line" style={{ animationDelay: "0ms" }}>&gt; INITIALIZING BREVITY ENGINE...</div>}
+      {lines >= 2 && <div className="preloader-line" style={{ animationDelay: "0ms" }}>&gt; COMPILING REGEX...</div>}
+      {lines >= 3 && <div className="preloader-line" style={{ animationDelay: "0ms" }}>&gt; SYSTEM READY.</div>}
+    </div>
+  );
+};
+
+const AnimatedSection = ({ children, className = "", delay = 0 }: { children: ReactNode, className?: string, delay?: number }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div 
+      ref={ref} 
+      className={`fade-up-section ${isVisible ? "is-visible" : ""} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+};
 
 const AnimatedNumber = ({ value, format }: { value: number, format: (v: number) => string }) => {
   const [displayValue, setDisplayValue] = useState(0);
@@ -149,6 +208,7 @@ function sanitizeMarkdown(content: string, options: { strip_svg: boolean, strip_
 }
 
 export default function Home() {
+  const [isAppLoaded, setIsAppLoaded] = useState(false);
   const [content, setContent] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
@@ -254,6 +314,10 @@ export default function Home() {
     }
   };
 
+  if (!isAppLoaded) {
+    return <Preloader onComplete={() => setIsAppLoaded(true)} />;
+  }
+
   return (
     <div className="container">
       <header className="header">
@@ -275,7 +339,7 @@ export default function Home() {
           unnecessary SVGs, images, and tracking URLs. Terminal-grade precision.
         </p>
 
-        <div className="main-grid">
+        <AnimatedSection className="main-grid" delay={100}>
           <div className="panel">
             <div className="panel-header">
               <span>Input.md</span>
@@ -334,9 +398,9 @@ export default function Home() {
               )}
             </div>
           </div>
-        </div>
+          </AnimatedSection>
 
-        <div className="controls">
+        <AnimatedSection className="controls" delay={200}>
           <label className="toggle">
             <input
               type="checkbox"
@@ -370,9 +434,9 @@ export default function Home() {
           >
             {loading ? "PROCESSING..." : "EXECUTE // SHRINK"}
           </button>
-        </div>
+        </AnimatedSection>
 
-        <div className="stats">
+        <AnimatedSection className="stats" delay={300}>
           <div className="stat-item">
             <span className="stat-value">
               <AnimatedNumber value={stats?.time || 0} format={(v) => `${v.toFixed(2)}ms`} />
@@ -391,11 +455,11 @@ export default function Home() {
             </span>
             <span className="stat-label">Reduction</span>
           </div>
-        </div>
+        </AnimatedSection>
 
         <div className="info-sections">
-          {/* Section 1: What is Brevity */}
-          <section className="about-section block-card">
+          {/* Section 1: Features */}
+          <AnimatedSection className="about-section block-card" delay={200}>
             <h2 className="about-title"><span className="highlight">What is</span> Brevity?</h2>
             <p className="about-desc">
               Brevity is a microservice that cleans dirty Markdown from visual noise for LLMs.
@@ -423,12 +487,15 @@ export default function Home() {
               </li>
             </ul>
             <Link href="/docs" className="docs-btn">Read the documentation &rarr;</Link>
-          </section>
+          </AnimatedSection>
 
-          <SavingsEstimator />
+          {/* Section: Savings Estimator */}
+          <AnimatedSection delay={300}>
+            <SavingsEstimator />
+          </AnimatedSection>
 
           {/* Section 2: Quick Start */}
-          <section className="quickstart-section" id="quick-start">
+          <AnimatedSection className="quickstart-section block-card" delay={400}>
             <div className="quickstart-card block-card">
               <div className="qs-header">&gt;_ GET STARTED</div>
               <h2 className="qs-title">Brevity is yours.</h2>
@@ -474,10 +541,10 @@ export default function Home() {
               </a>
               
             </div>
-          </section>
+          </AnimatedSection>
 
           {/* Section 3: Testimonials */}
-          <section className="testimonial-section block-card" id="reviews">
+          <AnimatedSection className="testimonial-section block-card" delay={500}>
             <div className="test-header">&#9825; LOVED BY ENTERPRISES</div>
             <h2 className="test-title">What our customers are saying</h2>
             
@@ -511,7 +578,7 @@ export default function Home() {
               ))}
             </div>
             <div className="test-hint">tap or swipe for the next satisfied customer &rarr;</div>
-          </section>
+          </AnimatedSection>
         </div>
       </main>
 
