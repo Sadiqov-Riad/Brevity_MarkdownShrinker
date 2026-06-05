@@ -54,7 +54,7 @@ export default function Docs() {
             <h3 className="docs-h3">Install Dependencies</h3>
             <div className="docs-code-block">
               <pre><code>{`# Clone the repository
-git clone https://github.com/Sadiqov-Riad/Brevity.git
+git clone -b API https://github.com/Sadiqov-Riad/Brevity.git
 cd Brevity
 
 # Create and activate a virtual environment

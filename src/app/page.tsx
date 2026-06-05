@@ -203,9 +203,9 @@ export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const qsOptions = [
-    { id: 'bash', label: 'bash', code: 'git clone https://github.com/Sadiqov-Riad/Brevity.git && cd Brevity' },
-    { id: 'powershell', label: 'powershell', code: 'git clone https://github.com/Sadiqov-Riad/Brevity.git; Set-Location Brevity' },
-    { id: 'cmd', label: 'cmd', code: 'git clone https://github.com/Sadiqov-Riad/Brevity.git && cd Brevity' }
+    { id: 'bash', label: 'bash', code: 'git clone -b API https://github.com/Sadiqov-Riad/Brevity.git && cd Brevity' },
+    { id: 'powershell', label: 'powershell', code: 'git clone -b API https://github.com/Sadiqov-Riad/Brevity.git; Set-Location Brevity' },
+    { id: 'cmd', label: 'cmd', code: 'git clone -b API https://github.com/Sadiqov-Riad/Brevity.git && cd Brevity' }
   ];
 
   const testimonials = [
@@ -487,7 +487,7 @@ export default function Home() {
               </div>
 
               <a 
-                href="https://github.com/Sadiqov-Riad/Brevity" 
+                href="https://github.com/Sadiqov-Riad/Brevity/tree/API" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="qs-github-btn"

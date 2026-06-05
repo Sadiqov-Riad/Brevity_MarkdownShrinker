@@ -31,7 +31,7 @@ export default function Header({ badgeText }: { badgeText: string }) {
         <Link href="/#quick-start">Quick Start</Link>
         <Link href="/docs">Docs</Link>
         <Link href="/#reviews">Reviews</Link>
-        <a href="https://github.com/Sadiqov-Riad/Brevity" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/Sadiqov-Riad/Brevity/tree/API" target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
 
       <button 
@@ -47,7 +47,7 @@ export default function Header({ badgeText }: { badgeText: string }) {
           <Link href="/#quick-start" onClick={() => setIsMenuOpen(false)}>&gt; Quick Start</Link>
           <Link href="/docs" onClick={() => setIsMenuOpen(false)}>&gt; Docs</Link>
           <Link href="/#reviews" onClick={() => setIsMenuOpen(false)}>&gt; Reviews</Link>
-          <a href="https://github.com/Sadiqov-Riad/Brevity" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>&gt; GitHub</a>
+          <a href="https://github.com/Sadiqov-Riad/Brevity/tree/API" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>&gt; GitHub</a>
         </nav>
       </div>
     </header>
